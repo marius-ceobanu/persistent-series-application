@@ -267,4 +267,28 @@ class AllRepositoryTest {
 
         Assertions.assertEquals(5, result.size());
     }
+
+    @Test
+    public void updateAllEpisodesReleaseDateBySeasonReleaseDate() {
+        populateHeavy();
+
+        List<Episode> result = episodeRepository.findByReleaseDateBetween(
+                                        LocalDate.of(2017, 1, 1),
+                                        LocalDate.of(2018, 1, 1)
+        );
+
+        Assertions.assertEquals(10, result.size());
+
+        int updatedEpisodes = episodeRepository.updateAllEpisodesReleaseDateBySeasonReleaseDate("2",
+                                        LocalDate.of(2017, 7, 21));
+
+        result = episodeRepository.findByReleaseDateBetween(
+                        LocalDate.of(2017, 1, 1),
+                        LocalDate.of(2018, 1, 1)
+        );
+
+        Assertions.assertEquals(10, updatedEpisodes);
+        Assertions.assertEquals(20, result.size());
+
+    }
 }
