@@ -291,4 +291,23 @@ class AllRepositoryTest {
         Assertions.assertEquals(20, result.size());
 
     }
+
+    @Test
+    public void findSeriesByDirector() {
+        populateLight();
+
+        List<Series> result = seriesRepository.findSeriesByDirector("Bill Dubuque");
+
+        Assertions.assertEquals(1, result.size());
+        Assertions.assertTrue(result.stream().allMatch(series -> series.getDirector().equals("Bill Dubuque")));
+    }
+
+    @Test
+    public void findCastBySeries() {
+        populateHeavy();
+
+        List<String> ozarkEpisodeTitles = seriesRepository.findEpisodeTitlesBySeries("Ozark");
+
+        Assertions.assertEquals(30,ozarkEpisodeTitles.size());
+    }
 }
